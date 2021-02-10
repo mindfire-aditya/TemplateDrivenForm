@@ -12,15 +12,17 @@ export class AppComponent {
   topics = ['Angular', 'React', 'Vue'];
   
   userModel = new User('Rob', 'rob@test.com', 55345345345, 'Angular', 'morning');
+  errorMessage = '';
+  successMsg = false;
 
   constructor(private _enrollmentService: EnrollmentService){ }
 
   onSubmit(){
     console.log(this.userModel);
-    // this._enrollmentService.enroll(this.userModel).subscribe(
-    //   data => console.log('Success!!', data),
-    //   error => console.log('Error!', error)
-    // )
+    this._enrollmentService.enroll(this.userModel).subscribe(
+      data => this.successMsg = true,
+      error => this.errorMessage = error.statusText
+    )
   }
   
 }
